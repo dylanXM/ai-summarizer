@@ -1,10 +1,10 @@
 {
-  "name": "summarizer",
+  "name": "sweet-kit",
   "private": true,
-  "displayName": "Summarizer",
+  "displayName": "sweet-kit",
   "version": "0.0.1",
-  "description": "Ai Summarizer Chrome Extension",
-  "author": "Link1987 <link.lin.1987@gmail.com>",
+  "description": "sweetAI kit Chrome Extension",
+  "author": "yangxm4996 <yangxm4996@gmail.com>",
   "scripts": {
     "dev": "rm -rf build/chrome-mv3-dev && plasmo dev",
     "build": "plasmo build",
