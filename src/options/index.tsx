@@ -6,6 +6,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 function OptionsIndex() {
   const [openaiApiKey, setOpenaiApiKey] = useStorage<string>("openaiApiKey", "")
+  
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       <div className="mt-10 relative w-full max-w-[48rem] rounded-xl py-8 border">
@@ -14,7 +15,7 @@ function OptionsIndex() {
         </div>
         <div className="p-6">
           <h1 className="mb-2 flex items-center block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-400 antialiased">
-            Summarizer Settings
+            sweet-kit settings
           </h1>
           <h2 className="text-lg mb-2 mt-6 text-gray-700 font-medium">
             OpenAI API Key
