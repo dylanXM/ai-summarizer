@@ -1,6 +1,7 @@
 import OpenAI from "openai"
 
 import { Storage } from "@plasmohq/storage"
+import axios from "axios"
 
 const storage = new Storage()
 const getClient = async () => {
@@ -37,22 +38,54 @@ export const genSummary = async (
   textContent: string,
   model?: string
 ) => {
-  const openai = await getClient()
-  const completion = await openai.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: prompt1
-      },
-      {
-        role: "user",
-        content: title
-          ? `title:\n${title}\n\ncontent:\n${textContent}`
-          : textContent
-      }
-    ],
-    model: model || "gpt-3.5-turbo-0125",
-    response_format: { type: "json_object" }
-  })
-  return completion
+  // const openai = await getClient()
+  // const completion = await openai.chat.completions.create({
+  //   messages: [
+  //     {
+  //       role: "system",
+  //       content: prompt1
+  //     },
+  //     {
+  //       role: "user",
+  //       content: title
+  //         ? `title:\n${title}\n\ncontent:\n${textContent}`
+  //         : textContent
+  //     }
+  //   ],
+  //   model: model || "gpt-3.5-turbo-0125",
+  //   response_format: { type: "json_object" }
+  // })
+  const apiKey = await storage.get("openaiApiKey")
+  const options = {
+    method: 'POST',
+    url: 'https://api.plumai.online/v1/chat/completions',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    data: {
+      model: 'gpt-3.5-turbo-0125',
+      messages: [
+        {
+          role: "system",
+          content: prompt1
+        },
+        {
+          role: "user",
+          content: title
+            ? `title:\n${title}\n\ncontent:\n${textContent}`
+            : textContent
+        }
+      ],
+    },
+  };
+  try {
+    debugger;
+    const res = await axios(options);
+    console.log('res', res);
+    const completion = res.data
+    return completion
+  } catch (err) {
+    return '';
+  }
 }
